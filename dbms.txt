@@ -482,7 +482,7 @@ SELECT * FROM RATING;
 
 
 
---------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------
 
 --List the titles of all movies directed by ‘Hitchcock’.
 
@@ -1109,6 +1109,123 @@ GROUP BY E1.DNO
 HAVING COUNT(*)>5)
 GROUP BY D.DNO;
 --------------------------------------------------------------------------------------------------------------------****************************
+
+-- Create sailors table
+CREATE TABLE sailors (
+    sid INT PRIMARY KEY,
+    sname VARCHAR(255) NOT NULL
+);
+
+-- Create boats table
+CREATE TABLE boats (
+    bid INT PRIMARY KEY,
+    bname VARCHAR(255) NOT NULL,
+    color VARCHAR(50) NOT NULL
+);
+
+-- Create reserves table
+CREATE TABLE reserves (
+    sid INT,
+    bid INT,
+    rdate DATE,
+    FOREIGN KEY (sid) REFERENCES sailors(sid),
+    FOREIGN KEY (bid) REFERENCES boats(bid),
+    PRIMARY KEY (sid, bid, rdate)
+);
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Insert sailors
+INSERT INTO sailors (sid, sname) VALUES
+(1, 'John'),
+(2, 'Amit'),
+(3, 'Maria'),
+(4, 'David');
+
+-- Insert boats
+INSERT INTO boats (bid, bname, color) VALUES
+(101, 'Sailboat1', 'red'),
+(102, 'Canoe1', 'blue'),
+(103, 'Yacht1', 'green'),
+(104, 'Kayak1', 'red');
+
+-- Insert reserves
+INSERT INTO reserves (sid, bid, rdate) VALUES
+(1, 101, '2024-01-05'),
+(2, 102, '2024-01-10'),
+(3, 103, '2024-01-15'),
+(4, 104, '2024-01-20');
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+-- Query 1: Find the name of sailors whose reserved boats are red
+SELECT DISTINCT s.sname
+FROM sailors s
+JOIN reserves r ON s.sid = r.sid
+JOIN boats b ON r.bid = b.bid
+WHERE b.color = 'red';
+
+-- Query 2: Find the name of sailors whose reserved boats are not colored by Amit
+SELECT DISTINCT s.sname
+FROM sailors s
+JOIN reserves r ON s.sid = r.sid
+JOIN boats b ON r.bid = b.bid
+WHERE b.color <> 'red' AND s.sname = 'Amit';
+
+------------------------------------------------------------------------------------------------------------------------*****************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
